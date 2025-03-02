@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { setToken, getUserFromToken } from '../../utils/auth';
 import { UserContext } from '../../contexts/UserContext';
 import { login } from '../../services/userService';
+import styles from './Login.module.css';
 
 export default function Login() {
     const { setUser } = useContext(UserContext);
     const [formData, setFormData] = useState({
-        identifier: '',
+        email: '',
         password: '',
     });
 
@@ -32,47 +33,54 @@ export default function Login() {
     };
 
     return (
-        <section style={{padding: "20px", maxWidth: "500px", margin: "0 auto"}}>
-            <h1> Welcome Back </h1>
-            <form onSubmit={handleSubmit}>
-                <div style={{marginBottom: "15px"}}>
-                    <label htmlFor="identifier" style={{display: "block", marginBottom: "5px"}}>Username or Email</label>
-                    <input
-                        type="text"
-                        name="identifier"
-                        id="identifier"
-                        placeholder="Enter your username or email"
-                        required
-                        onChange={handleChange}
-                        style={{width: "100%", padding: "8px"}}
-                    />
-                    {errors.identifier && <p style={{color: "red"}}>{errors.identifier}</p>}
+        <div className={styles.pageWrapper}>
+            <div className={styles.container}>
+                <div className={styles.leftColumn}>
+                    <h1 className={styles.title}>Log In</h1>
                 </div>
-
-                <div style={{marginBottom: "15px"}}>
-                    <label htmlFor="password" style={{display: "block", marginBottom: "5px"}}>Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="Enter your password"
-                        required
-                        onChange={handleChange}
-                        style={{width: "100%", padding: "8px"}}
-                    />
-                    {errors.password && <p style={{color: "red"}}>{errors.password}</p>}
+                
+                <div className={styles.rightColumn}>
+                    <form className={styles.form} onSubmit={handleSubmit}>
+                        <div className={styles.formGroup}>
+                            <input
+                                type="text"
+                                name="email"
+                                id="email"
+                                placeholder="Email or Username*"
+                                required
+                                onChange={handleChange}
+                                className={styles.input}
+                            />
+                            {errors.identifier && <p className={styles.error}>{errors.identifier}</p>}
+                        </div>
+                        
+                        <div className={styles.formGroup}>
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                placeholder="Password*"
+                                required
+                                onChange={handleChange}
+                                className={styles.input}
+                            />
+                            {errors.password && <p className={styles.error}>{errors.password}</p>}
+                        </div>
+                        
+                        <button 
+                            type="submit"
+                            className={styles.button}
+                            disabled={formData.identifier === '' || formData.password === ''}
+                        >
+                            Log In
+                        </button>
+                        
+                        {errors.general && <p className={styles.error}>{errors.general}</p>}
+                    </form>
                 </div>
-
-                {errors.general && <p style={{color: "red"}}>{errors.general}</p>}
-
-                <button 
-                    style={{padding: "10px 15px", background: "#4285f4", color: "white", border: "none", borderRadius: "4px", opacity: (formData.identifier === '' || formData.password === '') ? 0.5 : 1}}
-                    disabled={formData.identifier === '' || formData.password === ''} 
-                    type="submit"
-                >
-                    Log In
-                </button>
-            </form>
-        </section>
+            </div>
+            
+            <div className={styles.spacer}></div>
+        </div>
     );
 }

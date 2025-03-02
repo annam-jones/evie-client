@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
+
+.pageWrapper {
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 50px;
+  display: flex;
+  justify-content: space-between;
+  gap: 100px; 
+}
+
+.leftColumn {
+  flex: 0 0 60%; 
+  padding-top: 20px;
+  display: flex;
+  justify-content: flex-start; 
+}
+
+.rightColumn {
+  flex: 0 0 70%; 
+}
+
+.title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.7rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  color: #000;
+  line-height: 1;
+  white-space: nowrap; 
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 35px; 
+  width: 100%;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid #000; 
+  background: transparent;
+  outline: none;
+  transition: border-color 0.3s;
+  width: 100%;
+}
+
+.input:focus {
+  border-color: #333;
+}
+
+.input::placeholder {
+  color: #888;
+  font-weight: 400;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.button {
+  margin-top: 15px; 
+  padding: 12px 28px;
+  background-color: #999; 
+  color: white;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+  align-self: flex-start;
+  text-transform: uppercase;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #777;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spacer {
+  flex-grow: 1;
+  min-height: 200px;
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    padding: 40px 30px;
+    gap: 40px;
+  }
+  
+  .leftColumn, .rightColumn {
+    flex: 0 0 100%;
+  }
+  
+  .title {
+    font-size: 3rem;
+    white-space: normal; 
+  }
+}

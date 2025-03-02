@@ -3,11 +3,13 @@ import { UserContext } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../../services/userService';
 import { setToken, getUserFromToken } from '../../utils/auth';
+import styles from './Register.module.css';
 
 export default function Register() {
   const { setUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
-    username: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -34,79 +36,96 @@ export default function Register() {
   };
   
   return (
-    <div style={{padding: "20px", maxWidth: "500px", margin: "0 auto"}}>
-      <h1>Register to Evie</h1>
-      <form onSubmit={handleSubmit}>
-        <div style={{marginBottom: "15px"}}>
-          <label htmlFor="email" style={{display: "block", marginBottom: "5px"}}>Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Enter an email address"
-            required
-            onChange={handleChange}
-            style={{width: "100%", padding: "8px"}}
-          />
-          {errors.email && <p style={{color: "red"}}>{errors.email}</p>}
+    <div className={styles.pageWrapper}>
+      <div className={styles.container}>
+        <div className={styles.leftColumn}>
+          <h1 className={styles.title}>Register</h1>
         </div>
-        <div style={{marginBottom: "15px"}}>
-          <label htmlFor="username" style={{display: "block", marginBottom: "5px"}}>Username</label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            placeholder="Enter a username"
-            required
-            onChange={handleChange}
-            style={{width: "100%", padding: "8px"}}
-          />
-          {errors.username && <p style={{color: "red"}}>{errors.username}</p>}
+        
+        <div className={styles.rightColumn}>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.formGroup}>
+              <input
+                type="text"
+                name="firstName"
+                id="firstName"
+                placeholder="First name*"
+                required
+                onChange={handleChange}
+                className={styles.input}
+              />
+              {errors.firstName && <p className={styles.error}>{errors.firstName}</p>}
+            </div>
+            
+            <div className={styles.formGroup}>
+              <input
+                type="text"
+                name="lastName"
+                id="lastName"
+                placeholder="Last name*"
+                required
+                onChange={handleChange}
+                className={styles.input}
+              />
+              {errors.lastName && <p className={styles.error}>{errors.lastName}</p>}
+            </div>
+            
+            <div className={styles.formGroup}>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Email*"
+                required
+                onChange={handleChange}
+                className={styles.input}
+              />
+              {errors.email && <p className={styles.error}>{errors.email}</p>}
+            </div>
+            
+            <div className={styles.formGroup}>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password*"
+                required
+                onChange={handleChange}
+                className={styles.input}
+              />
+              {errors.password && <p className={styles.error}>{errors.password}</p>}
+            </div>
+            
+            <div className={styles.formGroup}>
+              <input
+                type="password"
+                name="password_confirmation"
+                id="password_confirmation"
+                placeholder="Confirm Password*"
+                required
+                onChange={handleChange}
+                className={styles.input}
+              />
+              {(formData.password.length > 0 && formData.password_confirmation.length > 0 && 
+                formData.password !== formData.password_confirmation) &&
+                <p className={styles.error}>Passwords do not match</p>
+              }
+            </div>
+            
+            <button 
+              type="submit"
+              className={styles.button}
+              disabled={formData.password === '' || formData.password !== formData.password_confirmation}
+            >
+              Subscribe
+            </button>
+            
+            {errors.general && <p className={styles.error}>{errors.general}</p>}
+          </form>
         </div>
-        <div style={{marginBottom: "15px"}}>
-          <label htmlFor="password" style={{display: "block", marginBottom: "5px"}}>Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Enter a password"
-            required
-            onChange={handleChange}
-            style={{width: "100%", padding: "8px"}}
-          />
-          {errors.password && <p style={{color: "red"}}>{errors.password}</p>}
-        </div>
-        <div style={{marginBottom: "15px"}}>
-          <label htmlFor="password_confirmation" style={{display: "block", marginBottom: "5px"}}>Confirm Password</label>
-          <input
-            type="password"
-            name="password_confirmation"
-            id="password_confirmation"
-            placeholder="Re-type the password"
-            required
-            onChange={handleChange}
-            style={{width: "100%", padding: "8px"}}
-          />
-          {(formData.password.length > 0 && formData.password_confirmation.length > 0 && formData.password !== formData.password_confirmation) &&
-            <p style={{color: "red"}}>Passwords do not match</p>
-          }
-        </div>
-        <button 
-          disabled={formData.password === '' || formData.password !== formData.password_confirmation} 
-          type="submit"
-          style={{
-            padding: "10px 15px", 
-            background: "#4285f4", 
-            color: "white", 
-            border: "none", 
-            borderRadius: "4px",
-            opacity: (formData.password === '' || formData.password !== formData.password_confirmation) ? 0.5 : 1
-          }}
-        >
-          Register
-        </button>
-        {errors.general && <p style={{color: "red", marginTop: "10px"}}>{errors.general}</p>}
-      </form>
+      </div>
+      
+      <div className={styles.spacer}></div>
     </div>
   );
 }
