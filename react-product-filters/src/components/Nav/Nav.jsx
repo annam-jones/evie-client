@@ -36,6 +36,13 @@ export default function NavMenu() {
                 Events
               </NavLink>
               <NavLink
+              to="/Events/create"
+              className={styles.link}
+              onClick={() => setMenuOpen(false)}
+              >
+                Create an Event
+              </NavLink>
+              <NavLink
                 to={`/Events/${user.events}`}
                 className={styles.link}
                 onClick={() => setMenuOpen(false)}

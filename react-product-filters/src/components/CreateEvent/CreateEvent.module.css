@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
+
+.container {
+  font-family: 'Montserrat', sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 100px 50px;
+}
+
+.title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.7rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  color: #000;
+  line-height: 1;
+  white-space: nowrap; 
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 35px; 
+  width: 100%;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.formGroup label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.formGroup input, 
+.formGroup textarea {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid #000; 
+  background: transparent;
+  outline: none;
+  transition: border-color 0.3s;
+  width: 100%;
+}
+
+.formGroup input:focus, 
+.formGroup textarea:focus {
+  border-color: #333;
+}
+
+.formGroup input::placeholder, 
+.formGroup textarea::placeholder {
+  color: #888;
+  font-weight: 400;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.fullWidth {
+  grid-column: span 2;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
+.button {
+  margin-top: 15px; 
+  padding: 12px 28px;
+  background-color: #999; 
+  color: white;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+  align-self: flex-start;
+  text-transform: uppercase;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #777;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 40px 30px;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    white-space: normal; 
+  }
+}

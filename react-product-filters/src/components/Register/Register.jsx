@@ -117,7 +117,7 @@ export default function Register() {
               className={styles.button}
               disabled={formData.password === '' || formData.password !== formData.password_confirmation}
             >
-              Subscribe
+              Register
             </button>
             
             {errors.general && <p className={styles.error}>{errors.general}</p>}
