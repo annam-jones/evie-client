@@ -5,6 +5,7 @@
     top: 0;
     z-index: 100;
     font-family: 'Cormorant Garamond', serif;
+    font-weight: bold;
   }
   
   .navContainer {
@@ -33,6 +34,7 @@
     padding: 8px 0;
     position: relative;
     transition: all 0.3s ease;
+    
   }
   
  
@@ -69,7 +71,7 @@
     opacity: 1;
   }
   
-  /* Mobile responsive design */
+  
   @media (max-width: 768px) {
     .navContainer {
       flex-direction: column;

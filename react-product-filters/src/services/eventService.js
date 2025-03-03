@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getToken } from "../utils/auth";
 
-// Create a configured axios instance
+
 const apiClient = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}/events`,
   headers: {
@@ -9,7 +9,7 @@ const apiClient = axios.create({
   }
 });
 
-// Add an interceptor to include authorization token
+
 apiClient.interceptors.request.use(
   config => {
     const token = getToken();
@@ -21,25 +21,24 @@ apiClient.interceptors.request.use(
   error => Promise.reject(error)
 );
 
-// Global error handler
 const handleApiError = (error) => {
   if (error.response) {
-    // The request was made and the server responded with a status code
+  
     console.error('API Error Response:', {
       status: error.response.status,
       data: error.response.data
     });
   } else if (error.request) {
-    // The request was made but no response was received
+
     console.error('No response received:', error.request);
   } else {
-    // Something happened in setting up the request
+   
     console.error('Error setting up request:', error.message);
   }
   throw error;
 };
 
-// Fetch all events
+
 export const eventIndex = async () => {
   try {
     const response = await apiClient.get('/');
@@ -49,7 +48,7 @@ export const eventIndex = async () => {
   }
 };
 
-// Fetch a single event
+
 export const eventShow = async (eventId) => {
   try {
     const response = await apiClient.get(`/${eventId}`);
@@ -59,7 +58,7 @@ export const eventShow = async (eventId) => {
   }
 };
 
-// Create a new event
+
 export const eventCreate = async (formData) => {
   try {
     const response = await apiClient.post('/', formData);
@@ -69,7 +68,7 @@ export const eventCreate = async (formData) => {
   }
 };
 
-// Update an existing event
+
 export const eventUpdate = async (eventId, formData) => {
   try {
     const response = await apiClient.put(`/${eventId}`, formData);
@@ -79,7 +78,7 @@ export const eventUpdate = async (eventId, formData) => {
   }
 };
 
-// Delete an event
+
 export const eventDelete = async (eventId) => {
   try {
     await apiClient.delete(`/${eventId}`);
@@ -88,7 +87,7 @@ export const eventDelete = async (eventId) => {
   }
 };
 
-// Mark event attendance
+
 export const attendEvent = async (eventId) => {
   try {
     const response = await apiClient.put(`/${eventId}/attend`, {});
@@ -98,7 +97,7 @@ export const attendEvent = async (eventId) => {
   }
 };
 
-// Cancel event attendance
+
 export const cancelEventAttendance = async (eventId) => {
   try {
     const response = await apiClient.put(`/${eventId}/cancel-attend`, {});
@@ -108,7 +107,7 @@ export const cancelEventAttendance = async (eventId) => {
   }
 };
 
-// Fetch events a profile is attending
+
 export const getAttendingEvents = async (profileId) => {
   try {
     const response = await apiClient.get(`/profile/${profileId}/attending`);
