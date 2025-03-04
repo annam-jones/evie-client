@@ -1,0 +1,104 @@
+.homepage {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .heroSection {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+  
+    z-index: -1;
+    filter: brightness(0.7);
+    background-image: url("../assets/homepageImage.jpg");
+  }
+  
+  .heroContent {
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .title {
+    font-size: 3.5rem;
+    margin-bottom: 16px;
+    font-weight: 700;
+  }
+  
+  .subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 32px;
+    font-weight: 300;
+  }
+  
+  .buttonGroup {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .exploreButton, .createButton {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .exploreButton:hover, .createButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .exploreButton {
+    background-color: #3b82f6;
+    color: white;
+  }
+  
+  .createButton {
+    background-color: white;
+    color: #3b82f6;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .title {
+      font-size: 2.5rem;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+    }
+    
+    .buttonGroup {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }

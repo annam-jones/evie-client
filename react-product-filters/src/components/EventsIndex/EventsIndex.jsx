@@ -9,6 +9,22 @@ export default function EventsIndex() {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  // List of categories - you can customize this based on your data
+  const categories = [
+    "All", 
+    "Technology", 
+    "Outdoors", 
+    "Music", 
+    "Arts", 
+    "Business", 
+    "Community", 
+    "Sports", 
+    "Food", 
+    "Education", 
+    "Other"
+  ];
 
   useEffect(() => {
     fetchEvents();
@@ -18,7 +34,7 @@ export default function EventsIndex() {
     setIsLoading(true);
     try {
       const data = await eventIndex();
-      console.log("API returned events:", data); 
+      console.log("API returned events:", data);
       setEvents(data || []);
       setError("");
     } catch (error) {
@@ -30,8 +46,13 @@ export default function EventsIndex() {
   };
 
   const handleDeleteEvent = (eventId) => {
-    setEvents(events.filter(event => event._id !== eventId));
+    setEvents(events.filter(event => event.id !== eventId));
   };
+
+  // Filter events by selected category
+  const filteredEvents = selectedCategory === "All" 
+    ? events 
+    : events.filter(event => event.category === selectedCategory);
 
   if (isLoading) return <p className={styles.loading}>Loading events...</p>;
 
@@ -39,17 +60,39 @@ export default function EventsIndex() {
     <div className={styles.container}>
       <h1 className={styles.title}>Events</h1>
 
+      <div className={styles.filterContainer}>
+        <label htmlFor="category-filter" className={styles.filterLabel}>
+          Filter by Category:
+        </label>
+        <select
+          id="category-filter"
+          className={styles.categorySelect}
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          {categories.map(category => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
+
       {error && <p className={styles.error}>{error}</p>}
 
-      {events.length === 0 ? (
+      {filteredEvents.length === 0 ? (
         <div className={styles.noEvents}>
-          <p>There are no events available.</p>
+          <p>
+            {selectedCategory === "All" 
+              ? "There are no events available." 
+              : `No ${selectedCategory} events found.`}
+          </p>
         </div>
       ) : (
         <div className={styles.eventsGrid}>
-          {events.map((event) => (
+          {filteredEvents.map((event) => (
             <EventProfileCard 
-              key={event._id} 
+              key={event.id} 
               event={event} 
               onDelete={handleDeleteEvent} 
             />
