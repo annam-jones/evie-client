@@ -34,6 +34,14 @@ export default function UserEvents() {
     setUserEvents(userEvents.filter(event => event.id !== eventId));
   };
 
+  // Add this new function to handle attendance changes
+  const handleAttendanceChange = (eventId, isAttending) => {
+    // If the user is no longer attending, remove the event from the list
+    if (!isAttending) {
+      setUserEvents(userEvents.filter(event => event.id !== eventId));
+    }
+  };
+
   if (isLoading) return <p className={styles.loading}>Loading your events...</p>;
 
   return (
@@ -52,7 +60,8 @@ export default function UserEvents() {
             <EventProfileCard 
               key={event.id} 
               event={event} 
-              onDelete={handleDeleteEvent} 
+              onDelete={handleDeleteEvent}
+              onAttendanceChange={handleAttendanceChange} // Add this prop
             />
           ))}
         </div>

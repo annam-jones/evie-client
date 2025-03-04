@@ -7,7 +7,6 @@ import Modal from "@mui/material/Modal";
 import styles from "./EventProfileCard.module.css";
 import { eventDelete, attendEvent, cancelEventAttendance } from "../../services/eventService";
 
-
 const modalStyle = {
   position: "absolute",
   top: "50%",
@@ -26,11 +25,13 @@ const modalStyle = {
   flexDirection: "column",
   gap: "30px",
 };
-export default function EventProfileCard({ event, onDelete }) {
-  
 
-  
+export default function EventProfileCard({ event, onDelete, onAttendanceChange }) {
   const { user } = useContext(UserContext);
+  
+  console.log("Event data:", event);
+  console.log("Current user:", user);
+  
   const [open, setOpen] = useState(false);
   const [isAttending, setIsAttending] = useState(() => {
     const isUserEventsPage = window.location.pathname.includes('/events/my-events');
@@ -50,8 +51,8 @@ export default function EventProfileCard({ event, onDelete }) {
 
   const handleDelete = async () => {
     try {
-      await eventDelete(event._id);
-      if (onDelete) onDelete(event._id);
+      await eventDelete(event.id || event._id);
+      if (onDelete) onDelete(event.id || event._id);
       setOpen(false);
     } catch (error) {
       console.error("Error deleting event:", error);
@@ -67,13 +68,17 @@ export default function EventProfileCard({ event, onDelete }) {
   };
 
   const handleAttend = async () => {
+    console.log("Attempting to use event ID:", event.id || event._id);
+    
     try {
       if (isAttending) {
-        await cancelEventAttendance(event.id);
+        await cancelEventAttendance(event.id || event._id);
         setIsAttending(false);
+        if (onAttendanceChange) onAttendanceChange(event.id || event._id, false);
       } else {
-        await attendEvent(event.id);
+        await attendEvent(event.id || event._id);
         setIsAttending(true);
+        if (onAttendanceChange) onAttendanceChange(event.id || event._id, true);
       }
     } catch (error) {
       console.error("Error updating attendance:", error);
@@ -84,6 +89,13 @@ export default function EventProfileCard({ event, onDelete }) {
     const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
+
+
+  const isCreator = 
+    (event.created_by && event.created_by == user?.id) || 
+    (event.createdBy && event.createdBy == user?._id);
+    
+  console.log("Is creator:", isCreator);
 
   return (
     <>
@@ -99,7 +111,7 @@ export default function EventProfileCard({ event, onDelete }) {
             />
           ) : (
             <div className={styles.placeholderImage}>
-              <span></span>
+              <span>🎉</span>
             </div>
           )}
         </div>
@@ -109,7 +121,7 @@ export default function EventProfileCard({ event, onDelete }) {
           <p className={styles.eventLocation}>{event.location}</p>
         </div>
         <div className={styles.eventActions}>
-          {event.createdBy === user?._id && (
+          {isCreator && (
             <button
               className={styles.deleteButton}
               onClick={handleDelete}
