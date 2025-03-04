@@ -14,6 +14,12 @@ export default function Homepage() {
           className={styles.backgroundImage} 
           src="/homepageImage.jpg"
           alt="Events background" ></img>
+          <div className={styles.verticalText}>
+  <span>e</span>
+  <span>v</span>
+  <span>i</span>
+  <span>e</span>
+</div>
      </div>
     </div>
   );
