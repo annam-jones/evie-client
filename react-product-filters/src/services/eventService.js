@@ -87,30 +87,33 @@ export const eventDelete = async (eventId) => {
   }
 };
 
+export const getAttendingEvents = async () => {
+  try {
+    const response = await apiClient.get(`/profile/`);
+    console.log("Profile response:", response.data);
+    return response.data.attending_events || [];
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+
 
 export const attendEvent = async (eventId) => {
+
   try {
-    const response = await apiClient.put(`/${eventId}/attend`, {});
+    
+    const response = await apiClient.post(`/${eventId}/attend/`, {});
     return response.data;
   } catch (error) {
     return handleApiError(error);
   }
 };
-
 
 export const cancelEventAttendance = async (eventId) => {
-  try {
-    const response = await apiClient.put(`/${eventId}/cancel-attend`, {});
-    return response.data;
-  } catch (error) {
-    return handleApiError(error);
-  }
-};
-
-
-export const getAttendingEvents = async (profileId) => {
-  try {
-    const response = await apiClient.get(`/profile/${profileId}/attending`);
+   try {
+    
+    const response = await apiClient.post(`/${eventId}/attend/`, {});
     return response.data;
   } catch (error) {
     return handleApiError(error);
