@@ -71,7 +71,7 @@ export const eventCreate = async (formData) => {
 
 export const eventUpdate = async (eventId, formData) => {
   try {
-    const response = await apiClient.put(`/${eventId}`, formData);
+    const response = await apiClient.put(`/${eventId}/`, formData);
     return response.data;
   } catch (error) {
     return handleApiError(error);

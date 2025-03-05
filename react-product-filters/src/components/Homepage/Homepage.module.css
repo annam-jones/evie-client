@@ -40,7 +40,7 @@
     
     .verticalText {
         position: absolute;
-        left: 40px; /* Adjust as needed */
+        left: 40px; 
         top: 50%;
         transform: translateY(-50%);
         display: flex;
