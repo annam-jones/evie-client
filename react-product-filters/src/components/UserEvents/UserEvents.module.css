@@ -1,20 +1,20 @@
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 30px 20px;
   }
   
   .title {
     font-size: 32px;
     font-weight: 700;
     margin-bottom: 30px;
-    color: white;
+    color: #333; 
     text-align: center;
   }
   
   .loading {
     text-align: center;
-    color: white;
+    color: #333; 
     font-size: 18px;
     margin: 40px 0;
   }
@@ -34,11 +34,11 @@
   }
   
   .noEvents {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.05); 
     border-radius: 12px;
     padding: 40px;
     text-align: center;
-    color: white;
+    color: #333; 
   }
   
   .noEvents p {

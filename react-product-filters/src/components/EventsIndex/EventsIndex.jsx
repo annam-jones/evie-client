@@ -11,7 +11,6 @@ export default function EventsIndex() {
   const [error, setError] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // List of categories - you can customize this based on your data
   const categories = [
     "All", 
     "Technology", 
@@ -26,10 +25,7 @@ export default function EventsIndex() {
     "Other"
   ];
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
-
+  
   const fetchEvents = async () => {
     setIsLoading(true);
     try {
@@ -45,14 +41,25 @@ export default function EventsIndex() {
     }
   };
 
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
   const handleDeleteEvent = (eventId) => {
-    setEvents(events.filter(event => event.id !== eventId));
+    const newEvents = events.filter(event => {
+      return event.id !== eventId && event._id !== eventId;
+    });
+    setEvents(newEvents);
   };
 
-  // Filter events by selected category
-  const filteredEvents = selectedCategory === "All" 
-    ? events 
-    : events.filter(event => event.category === selectedCategory);
+  let filteredEvents = [];
+  try {
+    filteredEvents = selectedCategory === "All" 
+      ? events 
+      : events.filter(event => event.category === selectedCategory);
+  } catch (err) {
+    console.error("Error filtering events:", err);
+  }
 
   if (isLoading) return <p className={styles.loading}>Loading events...</p>;
 
@@ -60,41 +67,35 @@ export default function EventsIndex() {
     <div className={styles.container}>
       <h1 className={styles.title}>Events</h1>
 
-      <div className={styles.filterContainer}>
-        <label htmlFor="category-filter" className={styles.filterLabel}>
-          Filter by Category:
-        </label>
-        <select
-          id="category-filter"
-          className={styles.categorySelect}
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-        >
-          {categories.map(category => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
+      <div className={styles.categoryFilter}>
+        {categories.map(category => (
+          <button
+            key={category}
+            className={`${styles.categoryButton} ${selectedCategory === category ? styles.activeCategory : ''}`}
+            onClick={() => setSelectedCategory(category)}
+          >
+            {category}
+          </button>
+        ))}
       </div>
 
+    
       {error && <p className={styles.error}>{error}</p>}
 
+     
       {filteredEvents.length === 0 ? (
-        <div className={styles.noEvents}>
-          <p>
-            {selectedCategory === "All" 
-              ? "There are no events available." 
-              : `No ${selectedCategory} events found.`}
-          </p>
-        </div>
+        <p className={styles.noEvents}>No events found.</p>
       ) : (
         <div className={styles.eventsGrid}>
-          {filteredEvents.map((event) => (
-            <EventProfileCard 
-              key={event.id} 
-              event={event} 
-              onDelete={handleDeleteEvent} 
+          {filteredEvents.map(event => (
+            <EventProfileCard
+              key={event.id || event._id}
+              event={event}
+              onDelete={handleDeleteEvent}
+              onAttendanceChange={(eventId, isAttending) => {
+                
+                console.log(`Event ${eventId} attendance changed to ${isAttending}`);
+              }}
             />
           ))}
         </div>

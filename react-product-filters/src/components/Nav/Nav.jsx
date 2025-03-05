@@ -29,7 +29,7 @@ export default function NavMenu() {
                     {user && (
                         <>
                             <NavLink
-                                to="/events/"
+                                to="/events"
                                 className={styles.link}
                                 onClick={() => setMenuOpen(false)}
                             >

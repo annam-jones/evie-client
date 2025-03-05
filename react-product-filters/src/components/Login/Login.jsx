@@ -21,7 +21,7 @@ export default function Login() {
             const data = await login(formData);
             setToken(data.token);
             setUser(getUserFromToken());
-            navigate('/profiles/index');
+            navigate('/');
         } catch (error) {
             setErrors(error.response?.data?.errors || { general: "Invalid login credentials" });
         }
