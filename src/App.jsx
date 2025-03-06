@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Register from "./components/Register/Register";
 import Login from "./components/Login/Login";
-import NavMenu from "./components/Nav/nav";
+import NavMenu from "./components/Nav/navbar";
 import CreateEvent from './components/CreateEvent/CreateEvent'; 
 import EventsIndex from './components/EventsIndex/EventsIndex';
 import UserEvents from "./components/UserEvents/UserEvents";
