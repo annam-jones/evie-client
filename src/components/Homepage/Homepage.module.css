@@ -7,7 +7,7 @@ Updated CSS with evie in the bottom left corner
   position: relative;
 }
 
-/* Background container with animation */
+
 .backgroundContainer {
   position: fixed;
   top: 0;
@@ -19,7 +19,7 @@ Updated CSS with evie in the bottom left corner
   animation: fadeIn 1.5s ease-out forwards;
 }
 
-/* The actual background image */
+
 .backgroundImage {
   width: 100%;
   height: 100%;
@@ -28,7 +28,7 @@ Updated CSS with evie in the bottom left corner
   animation: scaleDown 2s ease-out forwards;
 }
 
-/* Text overlay - modified to align to bottom left */
+
 .textOverlay {
   position: absolute;
   top: 0;
@@ -36,8 +36,8 @@ Updated CSS with evie in the bottom left corner
   width: 100%;
   height: 100vh;
   display: flex;
-  justify-content: flex-start; /* Changed from center to flex-start */
-  align-items: flex-end; /* Changed from center to flex-end */
+  justify-content: flex-start; 
+  align-items: flex-end; 
   pointer-events: none;
   opacity: 0;
   animation: fadeInText 1s ease-out 0.8s forwards;
@@ -51,11 +51,10 @@ Updated CSS with evie in the bottom left corner
   letter-spacing: 0.5rem;
   transform: translateY(20px);
   animation: moveUp 1.2s ease-out 0.8s forwards;
-  margin-left: 2rem; /* Added margin to keep it away from the edge */
-  margin-bottom: 2rem; /* Added margin to keep it away from the bottom edge */
+  margin-left: 2rem;
+  margin-bottom: 2rem; 
 }
 
-/* Content section that appears after parallax */
 .contentSection {
   position: relative;
   margin-top: 100vh;
@@ -114,7 +113,7 @@ Updated CSS with evie in the bottom left corner
   }
 }
 
-/* Mobile responsiveness */
+
 @media (max-width: 768px) {
   .evieText {
     font-size: 6rem;

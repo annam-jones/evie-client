@@ -8,8 +8,7 @@ import styles from './Register.module.css';
 export default function Register() {
   const { setUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    username: '',
     email: '',
     password: '',
     password_confirmation: '',
@@ -47,27 +46,14 @@ export default function Register() {
             <div className={styles.formGroup}>
               <input
                 type="text"
-                name="firstName"
-                id="firstName"
-                placeholder="First name*"
+                name="username"
+                id="username"
+                placeholder="Username*"
                 required
                 onChange={handleChange}
                 className={styles.input}
               />
-              {errors.firstName && <p className={styles.error}>{errors.firstName}</p>}
-            </div>
-            
-            <div className={styles.formGroup}>
-              <input
-                type="text"
-                name="lastName"
-                id="lastName"
-                placeholder="Last name*"
-                required
-                onChange={handleChange}
-                className={styles.input}
-              />
-              {errors.lastName && <p className={styles.error}>{errors.lastName}</p>}
+              {errors.username && <p className={styles.error}>{errors.username}</p>}
             </div>
             
             <div className={styles.formGroup}>

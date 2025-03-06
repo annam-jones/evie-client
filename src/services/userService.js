@@ -10,7 +10,7 @@ export const register = async (formData) => {
     return res.data;
   } catch (error) {
     console.error("Register error:", error);
-    // Add this to see detailed error response
+    
     if (error.response) {
       console.error("Error response:", error.response.data);
     }
