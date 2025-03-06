@@ -1,26 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 30px 50px; /* Reduced top padding from 100px to 30px */
+.pageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh; 
+  max-height: 100vh;
+  padding-top: 90px; 
+  padding-left: 5%; 
+  padding-right: 5%; 
+  box-sizing: border-box; 
+}
+
+.backgroundImage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0.85; 
 }
 
 .title {
   font-family: 'Montserrat', sans-serif;
   font-size: 2.7rem;
   font-weight: 600;
-  margin-top: 0; /* Added this to ensure no extra space */
-  margin-bottom: 40px;
+  margin-top: 20px; 
+  margin-bottom: 40px; 
   line-height: 1;
   white-space: nowrap;
+  color: black;
 }
 
 .categoryFilter {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 40px;
+  gap: 10px; 
+  margin-bottom: 40px; 
 }
 
 .categoryButton {
@@ -28,25 +45,27 @@
   font-size: 0.9rem;
   padding: 8px 16px;
   background: transparent;
-  border: 1px solid;
+  border: 1px solid black;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   text-transform: uppercase;
   letter-spacing: 1px;
+  color: black;
 }
 
 .categoryButton:hover {
-  background-color: rgba(0,0,0,0.05);
+  background-color: rgba(0,0,0,0.1);
 }
 
 .activeCategory {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0,0,0,0.15);
+  font-weight: 500;
 }
 
 .eventsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 30px;
+  gap: 30px; 
 }
 
 .loading,

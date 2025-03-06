@@ -1,26 +1,30 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import styles from "./homepage.module.css";
-
 
 export default function Homepage() {
   const { user } = useContext(UserContext);
 
   return (
     <div className={styles.homepage}>
-      <div className={styles.heroSection}>
+      {/* Animated background container */}
+      <div className={styles.backgroundContainer}>
         <img 
-          className={styles.backgroundImage} 
-          src="/homepageImage.jpg"
-          alt="Events background" ></img>
-          <div className={styles.verticalText}>
-  <span>e</span>
-  <span>v</span>
-  <span>i</span>
-  <span>e</span>
-</div>
-     </div>
+          src="/james_turrell.jpg" 
+          alt="James Turrell art" 
+          className={styles.backgroundImage}
+        />
+      </div>
+      
+      {/* Text overlay with animation */}
+      <div className={styles.textOverlay}>
+        <h1 className={styles.evieText}>evie</h1>
+    
+      
+ 
+          
+      
+      </div>
     </div>
   );
 }

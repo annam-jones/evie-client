@@ -61,45 +61,56 @@ export default function EventsIndex() {
     console.error("Error filtering events:", err);
   }
 
-  if (isLoading) return <p className={styles.loading}>Loading events...</p>;
+  if (isLoading) return (
+    <div className={styles.pageWrapper}>
+      <img src="/fabric.jpg" alt="Background" className={styles.backgroundImage} />
+      <div className={styles.container}>
+        <p className={styles.loading}>Loading events...</p>
+      </div>
+    </div>
+  );
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Events</h1>
+    <div className={styles.pageWrapper}>
+      {/* Background image */}
+      <img src="/fabric.jpg" alt="Background" className={styles.backgroundImage} />
+      
+      <div className={styles.container}>
+        <h1 className={styles.title}>Events</h1>
 
-      <div className={styles.categoryFilter}>
-        {categories.map(category => (
-          <button
-            key={category}
-            className={`${styles.categoryButton} ${selectedCategory === category ? styles.activeCategory : ''}`}
-            onClick={() => setSelectedCategory(category)}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
-
-    
-      {error && <p className={styles.error}>{error}</p>}
-
-     
-      {filteredEvents.length === 0 ? (
-        <p className={styles.noEvents}>No events found.</p>
-      ) : (
-        <div className={styles.eventsGrid}>
-          {filteredEvents.map(event => (
-            <EventProfileCard
-              key={event.id || event._id}
-              event={event}
-              onDelete={handleDeleteEvent}
-              onAttendanceChange={(eventId, isAttending) => {
-                
-                console.log(`Event ${eventId} attendance changed to ${isAttending}`);
-              }}
-            />
+        <div className={styles.categoryFilter}>
+          {categories.map(category => (
+            <button
+              key={category}
+              className={`${styles.categoryButton} ${selectedCategory === category ? styles.activeCategory : ''}`}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category}
+            </button>
           ))}
         </div>
-      )}
+
+      
+        {error && <p className={styles.error}>{error}</p>}
+
+       
+        {filteredEvents.length === 0 ? (
+          <p className={styles.noEvents}>No events found.</p>
+        ) : (
+          <div className={styles.eventsGrid}>
+            {filteredEvents.map(event => (
+              <EventProfileCard
+                key={event.id || event._id}
+                event={event}
+                onDelete={handleDeleteEvent}
+                onAttendanceChange={(eventId, isAttending) => {
+                  console.log(`Event ${eventId} attendance changed to ${isAttending}`);
+                }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
