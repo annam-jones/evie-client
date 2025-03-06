@@ -7,7 +7,7 @@ export default function Homepage() {
 
   return (
     <div className={styles.homepage}>
-      {/* Animated background container */}
+      
       <div className={styles.backgroundContainer}>
         <img 
           src="/james_turrell.jpg" 
@@ -16,7 +16,7 @@ export default function Homepage() {
         />
       </div>
       
-      {/* Text overlay with animation */}
+      
       <div className={styles.textOverlay}>
         <h1 className={styles.evieText}>evie</h1>
     

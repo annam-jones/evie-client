@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { setToken, getUserFromToken } from '../../utils/auth';
 import { UserContext } from '../../contexts/UserContext';
 import { login } from '../../services/userService';
-import styles from './Login.module.css';
+import styles from './Logins.module.css';
 
 export default function Login() {
     const { setUser } = useContext(UserContext);
