@@ -13,7 +13,6 @@
   border-radius: 8px;
   box-shadow: 0 3px 8px rgba(0,0,0,0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 370px; 
 }
 
 .eventCard:hover {
@@ -24,7 +23,7 @@
 .eventImage {
   position: relative;
   overflow: hidden;
-  height: 130px; 
+  height: 180px; 
   cursor: pointer;
 }
 
@@ -50,46 +49,42 @@
 }
 
 .placeholderImage span {
-  font-size: 2.5rem; 
+  font-size: 3rem;
 }
 
 .eventInfo {
-  padding: 12px 10px; 
+  padding: 15px;
   flex-grow: 1;
   background-color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .eventInfo h3 {
-  font-size: 0.95rem; 
+  font-size: 1.1rem; 
   font-weight: 600;
-  margin: 0 0 5px 0; 
-  line-height: 1.2;
+  margin: 0 0 8px 0; 
+  line-height: 1.3;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  max-height: 2.4rem; 
-  height: auto;
+  height: 2.8rem; 
 }
 
 .eventCategory {
-  font-size: 0.7rem; 
+  font-size: 0.8rem;
   color: rgba(0,0,0,0.8);
-  margin-bottom: 4px; 
+  margin-bottom: 6px;
   font-weight: 500;
   text-align: center;
 }
 
 .eventLocation {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: rgba(0,0,0,0.7);
-  margin-bottom: 3px;
+  margin-bottom: 4px;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -97,18 +92,19 @@
 }
 
 .eventDate {
-  font-size: 0.7rem; 
+  font-size: 0.8rem;
   color: rgba(0,0,0,0.7);
-  margin-bottom: 8px; 
+  margin-bottom: 12px;
   text-align: center;
 }
 
 .eventActions {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px; 
+  gap: 8px;
   margin-top: auto;
 }
+
 
 .deleteButton,
 .viewButton,
@@ -117,18 +113,18 @@
 .closeButton,
 .updateButton {
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.65rem; 
-  padding: 5px 0; 
+  font-size: 0.75rem;
+  padding: 6px 0;
   border: 1px solid rgba(0,0,0,0.15);
   background: transparent;
   cursor: pointer;
-  letter-spacing: 0.3px; 
+  letter-spacing: 0.5px;
   transition: all 0.3s ease;
   text-transform: uppercase;
   font-weight: 500;
   width: 100%;
   text-align: center;
-  border-radius: 4px;
+  border-radius: 4px; 
 }
 
 .viewButton {
@@ -169,11 +165,15 @@
 }
 
 
-.eventActions.threeButtons,
+.eventActions.threeButtons {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
 .eventActions.fourButtons {
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: 1fr 1fr;
 }
+
 
 .modalContent {
   padding: 20px;
@@ -185,15 +185,14 @@
   margin-top: 15px;
 }
 
+
 @media (max-width: 600px) {
   .eventCard {
     max-width: 100%;
-    height: auto; 
-    min-height: 350px;
   }
   
   .eventImage {
-    height: 160px;
+    height: 200px;
   }
   
   .eventActions {
