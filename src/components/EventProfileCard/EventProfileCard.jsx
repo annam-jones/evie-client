@@ -7,23 +7,25 @@ import Modal from "@mui/material/Modal";
 import styles from "./EventProfileCard.module.css";
 import { eventDelete, attendEvent, cancelEventAttendance, eventUpdate } from "../../services/eventService";
 
+
 const modalStyle = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 400,
-  height: "auto",
+  maxHeight: "80vh", 
+  overflow: "auto", 
   backdropFilter: "blur(15px)",
   background: "rgba(255, 255, 255, 0.15)",
   border: "none",
   boxShadow: "0 8px 32px rgba(0, 0, 0, 0.25)",
   color: "white",
-  p: 5,
+  p: 4, 
   borderRadius: "10px",
   display: "flex",
   flexDirection: "column",
-  gap: "30px",
+  gap: "20px", 
 };
 
 export default function EventProfileCard({ event, onDelete, onAttendanceChange }) {
@@ -202,51 +204,55 @@ export default function EventProfileCard({ event, onDelete, onAttendanceChange }
                 alt={`${event.title} event`}
                 style={{
                   width: "100%",
-                  maxHeight: "250px",
+                  maxHeight: "200px", 
                   borderRadius: "8px",
                   objectFit: "cover",
-                  margin: "8px 0",
+                  margin: "0 0 8px 0", 
                 }}
               />
             </div>
           )}
-          <Typography id="event-modal-title" variant="h6" component="h2" sx={{ fontWeight: "bold", fontSize: "22px" }}>
+          <Typography id="event-modal-title" variant="h6" component="h2" sx={{ fontWeight: "bold", fontSize: "20px", marginBottom: "-5px" }}>
             {event.title}
           </Typography>
-          <Typography sx={{ fontSize: "14px" }}>
-            <strong>When: </strong> {formatDate(event.date)}
-          </Typography>
-          <Typography sx={{ fontSize: "14px" }}>
-            <strong>Where: </strong> {event.location}
-          </Typography>
-          <Typography sx={{ fontSize: "14px", marginTop: "10px" }}>
-            <strong>Description: </strong> {event.description}
-          </Typography>
-          {event.category && (
-            <Typography sx={{ fontSize: "14px" }}>
-              <strong>Category: </strong> {event.category}
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <Typography sx={{ fontSize: "13px" }}>
+              <strong>When: </strong> {formatDate(event.date)}
             </Typography>
-          )}
-          {event.capacity && (
-            <Typography sx={{ fontSize: "14px" }}>
-              <strong>Capacity: </strong> {event.capacity} people
+            <Typography sx={{ fontSize: "13px" }}>
+              <strong>Where: </strong> {event.location}
             </Typography>
-          )}
-          {event.organizer && (
-            <Typography sx={{ fontSize: "14px", marginTop: "10px" }}>
-              <strong>Organized by: </strong> {event.organizer}
+            {event.category && (
+              <Typography sx={{ fontSize: "13px" }}>
+                <strong>Category: </strong> {event.category}
+              </Typography>
+            )}
+            {event.capacity && (
+              <Typography sx={{ fontSize: "13px" }}>
+                <strong>Capacity: </strong> {event.capacity} people
+              </Typography>
+            )}
+            {event.organizer && (
+              <Typography sx={{ fontSize: "13px" }}>
+                <strong>Organized by: </strong> {event.organizer}
+              </Typography>
+            )}
+            <Typography sx={{ fontSize: "13px", marginTop: "5px" }}>
+              <strong>Description: </strong> {event.description}
             </Typography>
-          )}
-          <div style={{ marginTop: "20px", display: "flex", justifyContent: "space-between" }}>
+          </div>
+          <div style={{ marginTop: "10px", display: "flex", justifyContent: "space-between" }}>
             <button
               className={isAttending ? styles.cancelButton : styles.attendButton}
               onClick={handleAttend}
+              style={{ padding: "8px 15px" }}
             >
               {isAttending ? "Cancel Attendance" : "Attend Event"}
             </button>
             <button
               className={styles.closeButton}
               onClick={handleClose}
+              style={{ padding: "8px 15px" }}
             >
               Close
             </button>
@@ -254,7 +260,7 @@ export default function EventProfileCard({ event, onDelete, onAttendanceChange }
         </Box>
       </Modal>
 
-    
+     
       <Modal open={updateModalOpen} onClose={handleUpdateClose} aria-labelledby="update-event-modal-title">
         <Box sx={{
           ...modalStyle,
@@ -271,7 +277,6 @@ export default function EventProfileCard({ event, onDelete, onAttendanceChange }
           </Typography>
           
           <form style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-           
             <div>
               <label htmlFor="title" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Event Title</label>
               <input
@@ -290,7 +295,145 @@ export default function EventProfileCard({ event, onDelete, onAttendanceChange }
               />
             </div>
             
-         
+            <div>
+              <label htmlFor="description" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Description</label>
+              <textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                rows="4"
+                style={{ 
+                  width: "100%", 
+                  padding: "10px", 
+                  border: "1px solid rgba(0,0,0,0.2)",
+                  borderRadius: "4px",
+                  fontSize: "16px",
+                  resize: "vertical"
+                }}
+              />
+            </div>
+            
+            <div style={{ display: "flex", gap: "10px" }}>
+              <div style={{ flex: 1 }}>
+                <label htmlFor="date" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Date</label>
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleInputChange}
+                  style={{ 
+                    width: "100%", 
+                    padding: "10px", 
+                    border: "1px solid rgba(0,0,0,0.2)",
+                    borderRadius: "4px",
+                    fontSize: "16px"
+                  }}
+                />
+              </div>
+              <div style={{ flex: 1 }}>
+                <label htmlFor="time" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Time</label>
+                <input
+                  type="time"
+                  id="time"
+                  name="time"
+                  value={formData.time}
+                  onChange={handleInputChange}
+                  style={{ 
+                    width: "100%", 
+                    padding: "10px", 
+                    border: "1px solid rgba(0,0,0,0.2)",
+                    borderRadius: "4px",
+                    fontSize: "16px"
+                  }}
+                />
+              </div>
+            </div>
+            
+            <div>
+              <label htmlFor="location" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Location</label>
+              <input
+                type="text"
+                id="location"
+                name="location"
+                value={formData.location}
+                onChange={handleInputChange}
+                style={{ 
+                  width: "100%", 
+                  padding: "10px", 
+                  border: "1px solid rgba(0,0,0,0.2)",
+                  borderRadius: "4px",
+                  fontSize: "16px"
+                }}
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="category" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Category</label>
+              <select
+                id="category"
+                name="category"
+                value={formData.category}
+                onChange={handleInputChange}
+                style={{ 
+                  width: "100%", 
+                  padding: "10px", 
+                  border: "1px solid rgba(0,0,0,0.2)",
+                  borderRadius: "4px",
+                  fontSize: "16px"
+                }}
+              >
+                <option value="">Select a category</option>
+                <option value="Technology">Technology</option>
+                <option value="Outdoors">Outdoors</option>
+                <option value="Music">Music</option>
+                <option value="Arts">Arts</option>
+                <option value="Business">Business</option>
+                <option value="Community">Community</option>
+                <option value="Sports">Sports</option>
+                <option value="Food">Food</option>
+                <option value="Education">Education</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            
+            <div>
+              <label htmlFor="eventImage" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Event Image URL</label>
+              <input
+                type="text"
+                id="eventImage"
+                name="eventImage"
+                value={formData.eventImage}
+                onChange={handleInputChange}
+                style={{ 
+                  width: "100%", 
+                  padding: "10px", 
+                  border: "1px solid rgba(0,0,0,0.2)",
+                  borderRadius: "4px",
+                  fontSize: "16px"
+                }}
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="capacity" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Capacity</label>
+              <input
+                type="number"
+                id="capacity"
+                name="capacity"
+                value={formData.capacity}
+                onChange={handleInputChange}
+                style={{ 
+                  width: "100%", 
+                  padding: "10px", 
+                  border: "1px solid rgba(0,0,0,0.2)",
+                  borderRadius: "4px",
+                  fontSize: "16px"
+                }}
+              />
+            </div>
+            
             <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
               <button
                 type="button"
