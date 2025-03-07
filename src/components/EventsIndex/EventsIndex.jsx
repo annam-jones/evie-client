@@ -72,7 +72,7 @@ export default function EventsIndex() {
 
   return (
     <div className={styles.pageWrapper}>
-      {/* Background image */}
+     
       <img src="/fabric.jpg" alt="Background" className={styles.backgroundImage} />
       
       <div className={styles.container}>

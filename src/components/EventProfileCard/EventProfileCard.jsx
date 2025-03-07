@@ -90,14 +90,13 @@ export default function EventProfileCard({ event, onDelete, onAttendanceChange }
   };
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    const options = { year: 'numeric', month: 'short', day: 'numeric' }; 
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
   const isCreator = 
     (event.created_by && event.created_by == user?.id) || 
     (event.createdBy && event.createdBy == user?._id);
-    
 
   const [formData, setFormData] = useState({
     title: event.title || "",
@@ -117,6 +116,16 @@ export default function EventProfileCard({ event, onDelete, onAttendanceChange }
       [name]: value
     });
   };
+  
+  const getActionButtonsClass = () => {
+    let buttonCount = 1; 
+    if (user) buttonCount++; 
+    if (isCreator) buttonCount += 2; 
+    
+    if (buttonCount === 3) return `${styles.eventActions} ${styles.threeButtons}`;
+    if (buttonCount === 4) return `${styles.eventActions} ${styles.fourButtons}`;
+    return styles.eventActions;
+  };
 
   return (
     <>
@@ -135,21 +144,23 @@ export default function EventProfileCard({ event, onDelete, onAttendanceChange }
         </div>
         
         <div className={styles.eventInfo}>
-          <h3>{event.title}</h3>
+          <div>
+            <h3>{event.title}</h3>
+            
+            {event.category && (
+              <div className={styles.eventCategory}>{event.category}</div>
+            )}
+            
+            <p className={styles.eventLocation}>{event.location}</p>
+            <p className={styles.eventDate}>{formatDate(event.date)}</p>
+          </div>
           
-          {event.category && (
-            <div className={styles.eventCategory}>{event.category}</div>
-          )}
-          
-          <p className={styles.eventLocation}>{event.location}</p>
-          <p className={styles.eventDate}>{formatDate(event.date)}</p>
-          
-          <div className={styles.eventActions}>
+          <div className={getActionButtonsClass()}>
             <button
               className={styles.viewButton}
               onClick={handleView}
             >
-              View Details
+              View
             </button>
             
             {user && (
@@ -181,6 +192,7 @@ export default function EventProfileCard({ event, onDelete, onAttendanceChange }
         </div>
       </div>
 
+      
       <Modal open={open} onClose={handleClose} aria-labelledby="event-modal-title">
         <Box sx={modalStyle}>
           {event.eventImage && (
@@ -242,7 +254,7 @@ export default function EventProfileCard({ event, onDelete, onAttendanceChange }
         </Box>
       </Modal>
 
-
+    
       <Modal open={updateModalOpen} onClose={handleUpdateClose} aria-labelledby="update-event-modal-title">
         <Box sx={{
           ...modalStyle,
@@ -253,11 +265,13 @@ export default function EventProfileCard({ event, onDelete, onAttendanceChange }
           background: "rgba(255, 255, 255, 0.95)",
           color: "#333"
         }}>
+        
           <Typography id="update-event-modal-title" variant="h6" component="h2" sx={{ fontWeight: "bold", fontSize: "22px", color: "#333", marginBottom: "20px" }}>
             Update Event
           </Typography>
           
           <form style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+           
             <div>
               <label htmlFor="title" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Event Title</label>
               <input
@@ -276,145 +290,7 @@ export default function EventProfileCard({ event, onDelete, onAttendanceChange }
               />
             </div>
             
-            <div>
-              <label htmlFor="description" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Description</label>
-              <textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                rows="4"
-                style={{ 
-                  width: "100%", 
-                  padding: "10px", 
-                  border: "1px solid rgba(0,0,0,0.2)",
-                  borderRadius: "4px",
-                  fontSize: "16px",
-                  resize: "vertical"
-                }}
-              />
-            </div>
-            
-            <div style={{ display: "flex", gap: "10px" }}>
-              <div style={{ flex: 1 }}>
-                <label htmlFor="date" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Date</label>
-                <input
-                  type="date"
-                  id="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleInputChange}
-                  style={{ 
-                    width: "100%", 
-                    padding: "10px", 
-                    border: "1px solid rgba(0,0,0,0.2)",
-                    borderRadius: "4px",
-                    fontSize: "16px"
-                  }}
-                />
-              </div>
-              <div style={{ flex: 1 }}>
-                <label htmlFor="time" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Time</label>
-                <input
-                  type="time"
-                  id="time"
-                  name="time"
-                  value={formData.time}
-                  onChange={handleInputChange}
-                  style={{ 
-                    width: "100%", 
-                    padding: "10px", 
-                    border: "1px solid rgba(0,0,0,0.2)",
-                    borderRadius: "4px",
-                    fontSize: "16px"
-                  }}
-                />
-              </div>
-            </div>
-            
-            <div>
-              <label htmlFor="location" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Location</label>
-              <input
-                type="text"
-                id="location"
-                name="location"
-                value={formData.location}
-                onChange={handleInputChange}
-                style={{ 
-                  width: "100%", 
-                  padding: "10px", 
-                  border: "1px solid rgba(0,0,0,0.2)",
-                  borderRadius: "4px",
-                  fontSize: "16px"
-                }}
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="category" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Category</label>
-              <select
-                id="category"
-                name="category"
-                value={formData.category}
-                onChange={handleInputChange}
-                style={{ 
-                  width: "100%", 
-                  padding: "10px", 
-                  border: "1px solid rgba(0,0,0,0.2)",
-                  borderRadius: "4px",
-                  fontSize: "16px"
-                }}
-              >
-                <option value="">Select a category</option>
-                <option value="Technology">Technology</option>
-                <option value="Outdoors">Outdoors</option>
-                <option value="Music">Music</option>
-                <option value="Arts">Arts</option>
-                <option value="Business">Business</option>
-                <option value="Community">Community</option>
-                <option value="Sports">Sports</option>
-                <option value="Food">Food</option>
-                <option value="Education">Education</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            
-            <div>
-              <label htmlFor="eventImage" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Event Image URL</label>
-              <input
-                type="text"
-                id="eventImage"
-                name="eventImage"
-                value={formData.eventImage}
-                onChange={handleInputChange}
-                style={{ 
-                  width: "100%", 
-                  padding: "10px", 
-                  border: "1px solid rgba(0,0,0,0.2)",
-                  borderRadius: "4px",
-                  fontSize: "16px"
-                }}
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="capacity" style={{ display: "block", marginBottom: "5px", fontWeight: "500" }}>Capacity</label>
-              <input
-                type="number"
-                id="capacity"
-                name="capacity"
-                value={formData.capacity}
-                onChange={handleInputChange}
-                style={{ 
-                  width: "100%", 
-                  padding: "10px", 
-                  border: "1px solid rgba(0,0,0,0.2)",
-                  borderRadius: "4px",
-                  fontSize: "16px"
-                }}
-              />
-            </div>
-            
+         
             <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
               <button
                 type="button"
@@ -428,11 +304,6 @@ export default function EventProfileCard({ event, onDelete, onAttendanceChange }
                 type="button"
                 onClick={async () => {
                   try {
-                    console.log("Submitting update with form data:", formData);
-                    console.log("Event ID:", event.id || event._id);
-                    
-                    
-                    
                     const cleanedData = {
                       ...event,  
                       title: formData.title,
@@ -445,23 +316,15 @@ export default function EventProfileCard({ event, onDelete, onAttendanceChange }
                       capacity: formData.capacity ? parseInt(formData.capacity) : event.capacity
                     };
                     
-                    
                     delete cleanedData._id;  
                     delete cleanedData.id;   
                     delete cleanedData.__v;  
                     
-                    console.log("Cleaned data being sent to API:", cleanedData);
-                    
-                    
                     const result = await eventUpdate(event.id || event._id, cleanedData);
-                    console.log("Update result:", result);
-                    
-                    
                     handleUpdateClose();
                     window.location.reload();
                   } catch (error) {
                     console.error("Error updating event:", error);
-                    
                     
                     let errorMessage = "Failed to update event";
                     if (error.response) {
