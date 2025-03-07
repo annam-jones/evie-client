@@ -34,37 +34,48 @@ export default function UserEvents() {
     setUserEvents(userEvents.filter(event => event.id !== eventId));
   };
 
-
   const handleAttendanceChange = (eventId, isAttending) => {
     if (!isAttending) {
       setUserEvents(userEvents.filter(event => event.id !== eventId));
     }
   };
 
-  if (isLoading) return <p className={styles.loading}>Loading your events...</p>;
+  if (isLoading) return (
+    <div className={styles.pageWrapper}>
+      <img src="/fabric.jpg" alt="Background" className={styles.backgroundImage} />
+      <div className={styles.container}>
+        <p className={styles.loading}>Loading your events...</p>
+      </div>
+    </div>
+  );
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>My Events</h1>
+    <div className={styles.pageWrapper}>
+      {/* Background image */}
+      <img src="/fabric.jpg" alt="Background" className={styles.backgroundImage} />
+      
+      <div className={styles.container}>
+        <h1 className={styles.title}>My Events</h1>
 
-      {error && <p className={styles.error}>{error}</p>}
+        {error && <p className={styles.error}>{error}</p>}
 
-      {userEvents.length === 0 ? (
-        <div className={styles.noEvents}>
-          <p>You're not attending any events yet.</p>
-        </div>
-      ) : (
-        <div className={styles.eventsGrid}>
-          {userEvents.map((event) => (
-            <EventProfileCard 
-              key={event.id} 
-              event={event} 
-              onDelete={handleDeleteEvent}
-              onAttendanceChange={handleAttendanceChange} 
-            />
-          ))}
-        </div>
-      )}
+        {userEvents.length === 0 ? (
+          <div className={styles.noEvents}>
+            <p>You're not attending any events yet.</p>
+          </div>
+        ) : (
+          <div className={styles.eventsGrid}>
+            {userEvents.map((event) => (
+              <EventProfileCard 
+                key={event.id} 
+                event={event} 
+                onDelete={handleDeleteEvent}
+                onAttendanceChange={handleAttendanceChange} 
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
